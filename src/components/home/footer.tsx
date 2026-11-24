@@ -79,7 +79,7 @@ export default function Footer() {
 
           {/* Column 2: CONTACT US */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="font-serif text-[13px] sm:text-sm font-extrabold tracking-[0.22em] text-black uppercase">
+            <h3 className="font-serif text-[13px] sm:text-sm font-extrabold tracking-[0.22em] text-[#deb56c] uppercase">
               {footerData.contact.title}
             </h3>
 
@@ -110,7 +110,7 @@ export default function Footer() {
 
           {/* Column 3: CHAT US with WhatsApp Input */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="font-serif text-[13px] sm:text-sm font-extrabold tracking-[0.22em] text-black uppercase">
+            <h3 className="font-serif text-[13px] sm:text-sm font-extrabold tracking-[0.22em] text-[#deb56c] uppercase">
               {footerData.chat.title}
             </h3>
 
@@ -133,7 +133,7 @@ export default function Footer() {
               <button
                 type="submit"
                 aria-label="Send WhatsApp message"
-                className="self-stretch bg-[#df9d6b] hover:bg-[#cf8c5a] text-white px-4 flex items-center justify-center transition-colors duration-200 cursor-pointer shrink-0"
+                className="self-stretch bg-[#deb56c] hover:bg-[#c99f57] text-[#141414] px-4 flex items-center justify-center transition-colors duration-200 cursor-pointer shrink-0"
               >
                 {/* WhatsApp Icon */}
                 <svg
