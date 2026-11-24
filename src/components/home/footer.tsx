@@ -163,7 +163,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar: Centered Copyright */}
-      <div className="relative z-10 border-t border-white/15 bg-black/15 py-5">
+      <div className="relative z-10 border-t border-white/15 bg-black/15 py-5 pb-20 lg:pb-5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-center text-center text-xs sm:text-[13px] text-[#faedea]/90">
           <div>
             <span>{footerData.copyright.text} </span>
