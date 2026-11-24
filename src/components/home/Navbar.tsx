@@ -117,115 +117,131 @@ export default function Navbar() {
       </header>
 
       {/* ================= MOBILE / RESPONSIVE TOP NAVBAR (lg:hidden) ================= */}
-      <header className="sticky top-0 z-50 w-full lg:hidden bg-[#740101] text-white shadow-[0_4px_20px_rgba(0,0,0,0.2)] select-none">
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3">
-          {/* Left: Brand Logo + Stacked Name (Karumannil / HOLDING) */}
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="relative h-8 w-8 shrink-0">
-              <Image
-                src="/images/logo.png"
-                alt="Karumannil Holding"
-                fill
-                sizes="32px"
-                className="object-contain"
-                priority
-              />
-            </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-sans font-bold text-[1.05rem] tracking-tight text-white leading-tight">
-                Karumannil
-              </span>
-              <span className="font-sans font-semibold text-[0.62rem] tracking-[0.2em] uppercase text-[#deb56c] mt-0.5 leading-tight">
-                Holding
-              </span>
-            </div>
-          </Link>
-
-          {/* Right: Contact Profile + Search + Hamburger Icon */}
-          <div className="flex items-center gap-3.5 sm:gap-4 text-white">
-            {/* User / Contact Icon */}
-            <Link
-              href="/contact"
-              aria-label="Contact"
-              className="p-1 text-white/90 hover:text-white transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </Link>
-
-            {/* Search / Portfolio Icon */}
-            <Link
-              href="/portfolio"
-              aria-label="Portfolio"
-              className="p-1 text-white/90 hover:text-white transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </Link>
-
-            {/* Hamburger Toggle */}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1 text-white hover:text-white/80 transition-colors focus:outline-none"
-              aria-label="Toggle Menu"
-            >
-              {mobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Dropdown Menu (Drops down directly from top navbar) */}
-        {mobileMenuOpen && (
-          <div className="bg-[#5a0000] border-t border-[#deb56c]/30 px-6 py-5 shadow-2xl select-none transition-all">
-            <nav className="flex flex-col gap-3">
-              {navbarData.navLinks.map((link) => {
-                const isLinkActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname === link.href;
-
-                return (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between py-2 text-[16px] font-semibold transition-colors ${
-                      isLinkActive
-                        ? "text-[#deb56c] font-bold"
-                        : "text-white/90 hover:text-white"
-                    }`}
-                  >
-                    <span>{link.label}</span>
-                    <svg className="w-4 h-4 text-white/40" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                );
-              })}
-
-              <div className="pt-3">
-                <Link
-                  href={navbarData.action.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex w-full items-center justify-center rounded-full bg-[#deb56c] hover:bg-[#c99f57] py-3 text-xs font-bold text-[#141414] tracking-widest uppercase shadow-md transition-colors"
-                >
-                  {navbarData.action.label}
-                </Link>
+      <header className="sticky top-0 z-50 w-full lg:hidden select-none transition-all duration-300">
+        <div
+          className={`transition-all duration-300 ${
+            isScrolled ? "px-3.5 pt-2 pb-1" : "px-4 sm:px-6 py-3 sm:py-4"
+          }`}
+        >
+          <div
+            className={`flex items-center justify-between transition-all duration-300 ${
+              isScrolled
+                ? "bg-white/85 backdrop-blur-md rounded-full px-4 sm:px-5 py-2 sm:py-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-0"
+                : "bg-transparent py-0 border-0"
+            }`}
+          >
+            {/* Left: Brand Logo + Stacked Name (Karumannil / HOLDING) */}
+            <Link href="/" className="flex items-center gap-2.5">
+              <div
+                className={`relative flex-shrink-0 transition-all duration-300 ${
+                  isScrolled ? "h-8 w-8" : "h-9 w-9"
+                }`}
+              >
+                <Image
+                  src="/images/logo.png"
+                  alt="Karumannil Holding"
+                  fill
+                  sizes="36px"
+                  className="object-contain"
+                  priority
+                />
               </div>
-            </nav>
+              <div className="flex flex-col leading-none">
+                <span className="font-sans font-bold text-[1.05rem] tracking-tight text-[#1c1c1c] leading-tight">
+                  Karumannil
+                </span>
+                <span className="font-sans font-semibold text-[0.62rem] tracking-[0.2em] uppercase text-[#740101] mt-0.5 leading-tight">
+                  Holding
+                </span>
+              </div>
+            </Link>
+
+            {/* Right: Contact Profile + Search + Hamburger Icon */}
+            <div className="flex items-center gap-3 sm:gap-4 text-[#1c1c1c]">
+              {/* User / Contact Icon */}
+              <Link
+                href="/contact"
+                aria-label="Contact"
+                className="p-1 text-[#1c1c1c]/80 hover:text-[#740101] transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </Link>
+
+              {/* Search / Portfolio Icon */}
+              <Link
+                href="/portfolio"
+                aria-label="Portfolio"
+                className="p-1 text-[#1c1c1c]/80 hover:text-[#740101] transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </Link>
+
+              {/* Hamburger Toggle */}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-1 text-[#1c1c1c] hover:text-[#740101] transition-colors focus:outline-none"
+                aria-label="Toggle Menu"
+              >
+                {mobileMenuOpen ? (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
-        )}
+
+          {/* Mobile Dropdown Menu (Under Top Navbar) */}
+          {mobileMenuOpen && (
+            <div className="mt-2 rounded-2xl bg-white/95 backdrop-blur-md px-6 py-5 shadow-xl border border-black/5 select-none transition-all">
+              <nav className="flex flex-col gap-3">
+                {navbarData.navLinks.map((link) => {
+                  const isLinkActive =
+                    link.href === "/"
+                      ? pathname === "/"
+                      : pathname === link.href;
+
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center justify-between py-2 text-[16px] font-semibold transition-colors ${
+                        isLinkActive
+                          ? "text-[#740101] font-bold"
+                          : "text-[#1c1c1c] hover:text-[#740101]"
+                      }`}
+                    >
+                      <span>{link.label}</span>
+                      <svg className="w-4 h-4 text-black/30" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  );
+                })}
+
+                <div className="pt-3">
+                  <Link
+                    href={navbarData.action.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="inline-flex w-full items-center justify-center rounded-full bg-[#740101] hover:bg-[#5a0000] py-3 text-xs font-bold text-white tracking-widest uppercase shadow-md transition-colors"
+                  >
+                    {navbarData.action.label}
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          )}
+        </div>
       </header>
     </>
   );
