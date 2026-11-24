@@ -161,45 +161,35 @@ export default function ServicesSection() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (window.innerWidth >= 768) return;
-
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const triggerPoint = window.innerHeight * 0.45;
-          let currentActiveId = servicesSectionData.services[0].id;
-
-          for (let i = 0; i < cardRefs.current.length; i++) {
-            const el = cardRefs.current[i];
-            if (!el) continue;
-            const rect = el.getBoundingClientRect();
-            // As each card reaches or passes the trigger threshold, it becomes active
-            if (rect.top <= triggerPoint) {
-              currentActiveId = servicesSectionData.services[i].id;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && window.innerWidth < 768) {
+            const id = Number(entry.target.getAttribute("data-id"));
+            if (id) {
+              setActiveId(id);
             }
           }
-
-          setActiveId(currentActiveId);
-          ticking = false;
         });
-        ticking = true;
+      },
+      {
+        root: null,
+        rootMargin: "-20% 0px -40% 0px",
+        threshold: 0.25,
       }
-    };
+    );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    cardRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => observer.disconnect();
   }, []);
-
-  const activeIndex = servicesSectionData.services.findIndex((s) => s.id === activeId);
 
   return (
     <section
       id="services"
-      className="relative bg-[#740101] py-8 sm:py-12 lg:py-14 text-white overflow-hidden select-none [perspective:1200px]"
+      className="relative bg-[#740101] py-8 sm:py-12 lg:py-14 text-white overflow-hidden select-none"
     >
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -222,11 +212,10 @@ export default function ServicesSection() {
           <div className="mt-3 w-14 sm:w-16 h-1 rounded-full bg-[#deb56c] shadow-sm" />
         </div>
 
-        {/* Cards: Interactive Sticky Stacking on Mobile, 3-Column Grid on Desktop */}
-        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pb-12 md:pb-0">
+        {/* Cards: Sticky Stacking on Mobile, 3-Column Grid on Desktop */}
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pb-6 md:pb-0">
           {servicesSectionData.services.map((service, index) => {
             const isActive = activeId === service.id;
-            const isPassed = index < activeIndex;
 
             return (
               <div
@@ -237,38 +226,16 @@ export default function ServicesSection() {
                 data-id={service.id}
                 onClick={() => setActiveId(service.id)}
                 style={{
-                  top: `calc(75px + ${index * 6}px)`,
+                  top: `calc(75px + ${index * 8}px)`,
                   zIndex: index + 1,
                 }}
-                className={`group relative cursor-pointer rounded-[22px] sm:rounded-[24px] p-6 sm:p-7 flex flex-col items-center text-center transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu sticky md:static md:top-auto mb-14 sm:mb-20 md:mb-0 ${
+                className={`group relative cursor-pointer rounded-[22px] sm:rounded-[24px] p-6 sm:p-7 flex flex-col items-center text-center transition-all duration-500 ease-out sticky md:static md:top-auto mb-6 md:mb-0 ${
                   isActive
-                    ? "bg-gradient-to-br from-[#68191b] via-[#521314] to-[#3a090b] text-white border-2 border-[#deb56c] shadow-[0_24px_55px_rgba(40,10,12,0.55),0_0_24px_rgba(222,181,108,0.26)] scale-[1.02] opacity-100 z-30 [transform:rotateX(0deg)]"
-                    : isPassed
-                    ? "bg-gradient-to-b from-[#fffefe] to-[#f4ede3] text-[#1c1b1a] shadow-md scale-[0.93] opacity-35 blur-[0.3px] -translate-y-2 pointer-events-none md:scale-100 md:opacity-100 md:blur-0 md:translate-y-0 md:pointer-events-auto [transform:rotateX(3deg)]"
-                    : "bg-gradient-to-b from-[#fffefe] to-[#f7f2ea] text-[#1c1b1a] shadow-[0_10px_24px_rgba(0,0,0,0.08)] scale-[0.98] opacity-90 md:scale-100 md:opacity-100 hover:shadow-[0_14px_30px_rgba(0,0,0,0.13)] hover:-translate-y-0.5 [transform:rotateX(2deg)]"
+                    ? "bg-gradient-to-br from-[#68191b] via-[#521314] to-[#3a090b] text-white border-2 border-[#deb56c] shadow-[0_18px_40px_rgba(40,10,12,0.45),0_0_20px_rgba(222,181,108,0.22)] scale-[1.01]"
+                    : "bg-gradient-to-b from-[#fffefe] to-[#f7f2ea] text-[#1c1b1a] shadow-[0_10px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_14px_30px_rgba(0,0,0,0.13)] hover:-translate-y-0.5"
                 }`}
               >
-                {/* Step Index Badge (Top-right) */}
-                <div className="absolute top-3 right-4 pointer-events-none">
-                  <span
-                    className={`font-mono text-[11px] font-bold tracking-widest px-2.5 py-0.5 rounded-full transition-colors duration-300 ${
-                      isActive
-                        ? "bg-white/15 text-[#fae2af] border border-[#deb56c]/40"
-                        : "bg-black/5 text-[#888]"
-                    }`}
-                  >
-                    0{index + 1}
-                  </span>
-                </div>
-
-                {/* Animated shimmer glint sweep across active card */}
-                {isActive && (
-                  <div className="absolute inset-0 rounded-[22px] sm:rounded-[24px] pointer-events-none overflow-hidden">
-                    <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-45 animate-pulse" />
-                  </div>
-                )}
-
-                {/* Gold sparkle glint on active card top-left corner */}
+                {/* Gold sparkle / shimmer glint on active card top-left corner */}
                 {isActive && (
                   <div className="absolute top-2.5 left-3 pointer-events-none">
                     <span className="relative flex h-2.5 w-2.5">
@@ -280,10 +247,10 @@ export default function ServicesSection() {
 
                 {/* Squircle Icon Container with luxury gold sheen */}
                 <div
-                  className={`relative w-[54px] h-[54px] rounded-[16px] flex items-center justify-center transition-all duration-300 shadow-sm ${
+                  className={`relative w-[54px] h-[54px] rounded-[16px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-sm ${
                     isActive
-                      ? "bg-gradient-to-br from-[#f8ebd0] via-[#e5c58f] to-[#cf9e54] border border-[#f5dfb8] scale-105 shadow-[0_6px_18px_rgba(222,181,108,0.35)]"
-                      : "bg-gradient-to-br from-[#faeed8] via-[#e8cb9b] to-[#d6aa6d] border border-[#fbeed4] scale-100"
+                      ? "bg-gradient-to-br from-[#f8ebd0] via-[#e5c58f] to-[#cf9e54] border border-[#f5dfb8]"
+                      : "bg-gradient-to-br from-[#faeed8] via-[#e8cb9b] to-[#d6aa6d] border border-[#fbeed4]"
                   }`}
                 >
                   <ServiceIcon icon={service.icon} isActive={isActive} />
