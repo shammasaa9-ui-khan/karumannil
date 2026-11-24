@@ -66,7 +66,7 @@ export default function Navbar() {
                   Karumannil
                 </span>
                 <span
-                  className={`font-sans font-bold tracking-tight text-[#740101] transition-all duration-300 ${
+                  className={`font-sans font-bold tracking-tight text-[#1c1c1c] transition-all duration-300 ${
                     isScrolled
                       ? "text-[1.12rem] sm:text-[1.22rem]"
                       : "text-[1.2rem] sm:text-[1.3rem]"
@@ -150,7 +150,7 @@ export default function Navbar() {
                 <span className="font-sans font-bold text-[1.02rem] tracking-tight text-[#1c1c1c] leading-tight">
                   Karumannil
                 </span>
-                <span className="font-sans font-bold text-[1.02rem] tracking-tight text-[#740101] leading-tight">
+                <span className="font-sans font-bold text-[1.02rem] tracking-tight text-[#1c1c1c] leading-tight">
                   Holding
                 </span>
               </div>
