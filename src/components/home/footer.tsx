@@ -174,7 +174,7 @@ export default function Footer() {
                 href={footerData.copyright.developerHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#38bdf8] font-bold hover:underline whitespace-nowrap transition-colors duration-200"
+                className="text-[#deb56c] hover:text-[#f8d794] font-bold hover:underline whitespace-nowrap transition-colors duration-200"
               >
                 {footerData.copyright.developerName}
               </a>
