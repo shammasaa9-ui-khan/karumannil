@@ -35,7 +35,7 @@ export default function Navbar() {
           <div
             className={`flex items-center justify-between transition-all duration-300 ${
               isScrolled
-                ? "bg-white/85 backdrop-blur-md rounded-full px-6 sm:px-8 lg:px-10 py-3 sm:py-3.5 shadow-[0_10px_35px_rgba(0,0,0,0.08)] border-0"
+                ? "bg-white/85 backdrop-blur-md rounded-xl sm:rounded-2xl px-6 sm:px-8 lg:px-10 py-3 sm:py-3.5 shadow-[0_10px_35px_rgba(0,0,0,0.08)] border-0"
                 : "bg-transparent py-0 border-0"
             }`}
           >
@@ -126,7 +126,7 @@ export default function Navbar() {
           <div
             className={`flex items-center justify-between transition-all duration-300 ${
               isScrolled
-                ? "bg-white/85 backdrop-blur-md rounded-full px-4 sm:px-5 py-2 sm:py-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-0"
+                ? "bg-white/85 backdrop-blur-md rounded-xl sm:rounded-2xl px-4 sm:px-5 py-2 sm:py-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-0"
                 : "bg-transparent py-0 border-0"
             }`}
           >
