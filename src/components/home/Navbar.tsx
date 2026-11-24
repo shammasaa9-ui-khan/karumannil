@@ -55,21 +55,21 @@ export default function Navbar() {
                   priority
                 />
               </div>
-              <div className="flex flex-col leading-none">
+              <div className="flex flex-col leading-[1.08]">
                 <span
                   className={`font-sans font-bold tracking-tight text-[#1c1c1c] transition-all duration-300 ${
                     isScrolled
-                      ? "text-[1.18rem] sm:text-[1.28rem]"
-                      : "text-[1.26rem] sm:text-[1.36rem]"
+                      ? "text-[1.12rem] sm:text-[1.22rem]"
+                      : "text-[1.2rem] sm:text-[1.3rem]"
                   }`}
                 >
                   Karumannil
                 </span>
                 <span
-                  className={`font-sans font-semibold tracking-[0.22em] uppercase text-[#740101] transition-all duration-300 ${
+                  className={`font-sans font-bold tracking-tight text-[#740101] transition-all duration-300 ${
                     isScrolled
-                      ? "text-[0.62rem] sm:text-[0.68rem] mt-0.5"
-                      : "text-[0.66rem] sm:text-[0.72rem] mt-0.5"
+                      ? "text-[1.12rem] sm:text-[1.22rem]"
+                      : "text-[1.2rem] sm:text-[1.3rem]"
                   }`}
                 >
                   Holding
@@ -146,11 +146,11 @@ export default function Navbar() {
                   priority
                 />
               </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-sans font-bold text-[1.05rem] tracking-tight text-[#1c1c1c] leading-tight">
+              <div className="flex flex-col leading-[1.08]">
+                <span className="font-sans font-bold text-[1.02rem] tracking-tight text-[#1c1c1c] leading-tight">
                   Karumannil
                 </span>
-                <span className="font-sans font-semibold text-[0.62rem] tracking-[0.2em] uppercase text-[#740101] mt-0.5 leading-tight">
+                <span className="font-sans font-bold text-[1.02rem] tracking-tight text-[#740101] leading-tight">
                   Holding
                 </span>
               </div>
