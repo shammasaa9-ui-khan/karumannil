@@ -39,11 +39,11 @@ export default function Navbar() {
                 : "bg-transparent py-0 border-0"
             }`}
           >
-            {/* Left: Brand Icon + 2-Line Name */}
-            <Link href="/" className="flex items-center gap-3 sm:gap-3.5 group">
+            {/* Left: Brand Icon + Single Line Centered Name */}
+            <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
               <div
                 className={`relative flex-shrink-0 transition-all duration-300 group-hover:scale-105 ${
-                  isScrolled ? "h-9 w-9 sm:h-11 sm:w-11" : "h-10 w-10 sm:h-12 sm:w-12"
+                  isScrolled ? "h-9 w-9 sm:h-10 sm:w-10" : "h-10 w-10 sm:h-12 sm:w-12"
                 }`}
               >
                 <Image
@@ -55,30 +55,19 @@ export default function Navbar() {
                   priority
                 />
               </div>
-              <div className="flex flex-col leading-[1.08]">
-                <span
-                  className={`font-sans font-bold tracking-tight text-[#1c1c1c] transition-all duration-300 ${
-                    isScrolled
-                      ? "text-[1.12rem] sm:text-[1.22rem]"
-                      : "text-[1.2rem] sm:text-[1.3rem]"
-                  }`}
-                >
-                  Karumannil
-                </span>
-                <span
-                  className={`font-sans font-bold tracking-tight text-[#1c1c1c] transition-all duration-300 ${
-                    isScrolled
-                      ? "text-[1.12rem] sm:text-[1.22rem]"
-                      : "text-[1.2rem] sm:text-[1.3rem]"
-                  }`}
-                >
-                  Holding
-                </span>
-              </div>
+              <span
+                className={`font-sans font-bold tracking-tight text-[#1c1c1c] uppercase whitespace-nowrap transition-all duration-300 ${
+                  isScrolled
+                    ? "text-[1.12rem] sm:text-[1.22rem]"
+                    : "text-[1.2rem] sm:text-[1.3rem]"
+                }`}
+              >
+                Karumannil Holding
+              </span>
             </Link>
 
             {/* Center: Desktop Nav Links */}
-            <nav className="flex items-center gap-8 lg:gap-10 text-[17px] lg:text-[18px]">
+            <nav className="flex items-center gap-7 lg:gap-9 text-[15.5px] lg:text-[16.5px]">
               {navbarData.navLinks.map((link) => {
                 const isLinkActive =
                   link.href === "/"
@@ -89,7 +78,7 @@ export default function Navbar() {
                   <Link
                     key={link.label}
                     href={link.href}
-                    className={`relative py-1.5 px-1 tracking-wide transition-colors duration-200 ${
+                    className={`relative py-1.5 px-1 tracking-wider uppercase transition-colors duration-200 ${
                       isLinkActive
                         ? "text-[#740101] font-bold"
                         : "text-[#2e2e2a] hover:text-[#740101] font-medium"
@@ -130,8 +119,8 @@ export default function Navbar() {
                 : "bg-transparent py-0 border-0"
             }`}
           >
-            {/* Left: Brand Logo + Stacked Name (Karumannil / HOLDING) */}
-            <Link href="/" className="flex items-center gap-2.5">
+            {/* Left: Brand Logo + Single Line Centered Name (KARUMANNIL HOLDING) */}
+            <Link href="/" className="flex items-center gap-2">
               <div
                 className={`relative flex-shrink-0 transition-all duration-300 ${
                   isScrolled ? "h-8 w-8" : "h-9 w-9"
@@ -146,14 +135,9 @@ export default function Navbar() {
                   priority
                 />
               </div>
-              <div className="flex flex-col leading-[1.08]">
-                <span className="font-sans font-bold text-[1.02rem] tracking-tight text-[#1c1c1c] leading-tight">
-                  Karumannil
-                </span>
-                <span className="font-sans font-bold text-[1.02rem] tracking-tight text-[#1c1c1c] leading-tight">
-                  Holding
-                </span>
-              </div>
+              <span className="font-sans font-bold text-[0.92rem] sm:text-[1.02rem] tracking-tight text-[#1c1c1c] uppercase whitespace-nowrap">
+                Karumannil Holding
+              </span>
             </Link>
 
             {/* Right: Hamburger Menu Icon */}
@@ -192,7 +176,7 @@ export default function Navbar() {
                       key={link.label}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center justify-between py-2 text-[16px] font-semibold transition-colors ${
+                      className={`flex items-center justify-between py-2 text-[15px] font-semibold uppercase tracking-wider transition-colors ${
                         isLinkActive
                           ? "text-[#740101] font-bold"
                           : "text-[#1c1c1c] hover:text-[#740101]"
