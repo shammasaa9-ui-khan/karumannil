@@ -165,16 +165,20 @@ export default function Footer() {
       {/* Bottom Bar: Centered Copyright */}
       <div className="relative z-10 border-t border-white/15 bg-black/15 py-5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-center text-center text-xs sm:text-[13px] text-[#faedea]/90">
-          <div>
-            <span>{footerData.copyright.text} </span>
-            <a
-              href={footerData.copyright.developerHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#38bdf8] font-bold hover:underline transition-colors duration-200"
-            >
-              {footerData.copyright.developerName}
-            </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 leading-relaxed">
+            <span>{footerData.copyright.text}</span>
+            <span className="hidden sm:inline text-white/40">|</span>
+            <span className="inline-flex items-center gap-1">
+              <span>Developed by</span>
+              <a
+                href={footerData.copyright.developerHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#38bdf8] font-bold hover:underline whitespace-nowrap transition-colors duration-200"
+              >
+                {footerData.copyright.developerName}
+              </a>
+            </span>
           </div>
         </div>
       </div>
