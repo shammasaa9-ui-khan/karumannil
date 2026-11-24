@@ -41,7 +41,7 @@ export const contactData: ContactData = {
       id: "address",
       icon: "address",
       label: "ADDRESS",
-      value: "Kozhikkal, Malappuram, Kerala, India – 676503",
+      value: "Kottakkal, Malappuram, Kerala, India – 676503",
     },
     {
       id: "phone",
