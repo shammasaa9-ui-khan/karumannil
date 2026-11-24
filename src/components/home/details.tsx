@@ -1,13 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { detailData, ApartmentDetail } from "@/data/home/detailData";
 
 export default function Details() {
-  // Mobile tap support: track which card is toggled open
-  const [activeCardId, setActiveCardId] = useState<number | null>(null);
+  // Mobile tap & scroll support: track which card is active/toggled open
+  const [activeCardId, setActiveCardId] = useState<number | null>(1);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Use IntersectionObserver matching ServicesSection for smooth, jank-free scroll detection on mobile
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && window.innerWidth < 640) {
+            const id = Number(entry.target.getAttribute("data-id"));
+            if (id) {
+              setActiveCardId(id);
+            }
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-15% 0px -35% 0px",
+        threshold: 0.2,
+      }
+    );
+
+    cardRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleCard = (id: number) => {
     setActiveCardId((prev) => (prev === id ? null : id));
@@ -45,17 +75,39 @@ export default function Details() {
           <div className="mt-3 w-14 sm:w-16 h-1 rounded-full bg-[#deb56c] shadow-sm" />
         </div>
 
-        {/* 4 Cards Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          {detailData.apartments.map((apartment: ApartmentDetail) => {
+        {/* 4 Cards: Sticky Stacking & Scroll Reveal on Mobile, Responsive Grid on sm/lg */}
+        <div className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 pb-8 sm:pb-0">
+          {detailData.apartments.map((apartment: ApartmentDetail, index: number) => {
             const isToggled = activeCardId === apartment.id;
 
             return (
               <div
                 key={apartment.id}
+                data-id={apartment.id}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
                 onClick={() => toggleCard(apartment.id)}
-                className="group relative cursor-pointer h-[290px] sm:h-[360px] lg:h-auto lg:aspect-[250/408] rounded-[22px] overflow-hidden bg-[#380e10] shadow-[0_12px_30px_rgba(0,0,0,0.12)] transition-all duration-500 hover:shadow-[0_20px_45px_rgba(74,21,24,0.32)] hover:-translate-y-1.5"
+                style={{
+                  top: `calc(75px + ${index * 12}px)`,
+                  zIndex: index + 1,
+                }}
+                className={`group relative cursor-pointer h-[320px] sm:h-[360px] lg:h-auto lg:aspect-[250/408] rounded-[22px] overflow-hidden bg-[#380e10] transition-all duration-500 ease-out sticky sm:static sm:top-auto mb-8 sm:mb-0 ${
+                  isToggled
+                    ? "scale-[1.01] border-2 border-[#deb56c] shadow-[0_20px_45px_rgba(56,14,16,0.45),0_0_20px_rgba(222,181,108,0.25)]"
+                    : "scale-100 border-2 border-transparent shadow-[0_12px_28px_rgba(0,0,0,0.12)] hover:shadow-[0_20px_45px_rgba(74,21,24,0.32)] hover:-translate-y-1"
+                }`}
               >
+                {/* Gold shimmer / glint indicator on active card */}
+                {isToggled && (
+                  <div className="absolute top-3 right-3 z-30 pointer-events-none">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fdeecb] opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white shadow-[0_0_7px_#deb56c]" />
+                    </span>
+                  </div>
+                )}
+
                 {/* 1. Base Card Image */}
                 <div className="absolute inset-0 z-0">
                   <Image
@@ -66,6 +118,22 @@ export default function Details() {
                     className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                     priority={apartment.id <= 2}
                   />
+                </div>
+
+                {/* Subtle bottom preview pill when not toggled on mobile */}
+                <div
+                  className={`absolute bottom-3 left-3 right-3 z-10 transition-all duration-300 sm:hidden ${
+                    isToggled ? "opacity-0 pointer-events-none translate-y-2" : "opacity-100 translate-y-0"
+                  }`}
+                >
+                  <div className="bg-black/65 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/20 flex items-center justify-between shadow-lg">
+                    <span className="font-serif text-white font-bold text-[13px] tracking-tight">
+                      {apartment.title}
+                    </span>
+                    <span className="text-[#deb56c] text-[11px] font-bold">
+                      {apartment.price}
+                    </span>
+                  </div>
                 </div>
 
                 {/* 2. Slide-up Content Overlay (Slides up from bottom to top on hover or tap) */}
@@ -132,7 +200,7 @@ export default function Details() {
                       className="group/link inline-block"
                       onClick={(e) => {
                         // On touch devices, first tap reveals the card, second tap opens link
-                        if (!isToggled && window.matchMedia("(hover: none)").matches) {
+                        if (!isToggled && typeof window !== "undefined" && window.matchMedia("(hover: none)").matches) {
                           e.preventDefault();
                         }
                       }}
