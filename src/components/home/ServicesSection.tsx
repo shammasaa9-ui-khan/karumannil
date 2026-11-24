@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { servicesSectionData, ServiceItem } from "@/data/home/ServicesSectionData";
 
 // Custom SVG Icons matching the reference design
@@ -156,6 +156,35 @@ function ServiceIcon({
 export default function ServicesSection() {
   // Card 1 active by default as shown in the mockup; clickable to switch
   const [activeId, setActiveId] = useState<number>(1);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && window.innerWidth < 768) {
+            const id = Number(entry.target.getAttribute("data-id"));
+            if (id) {
+              setActiveId(id);
+            }
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-20% 0px -40% 0px",
+        threshold: 0.25,
+      }
+    );
+
+    cardRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -183,19 +212,27 @@ export default function ServicesSection() {
           <div className="mt-3 w-14 sm:w-16 h-1 rounded-full bg-[#deb56c] shadow-sm" />
         </div>
 
-        {/* 6-Card Responsive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {servicesSectionData.services.map((service) => {
+        {/* Cards: Sticky Stacking on Mobile, 3-Column Grid on Desktop */}
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 pb-6 md:pb-0">
+          {servicesSectionData.services.map((service, index) => {
             const isActive = activeId === service.id;
 
             return (
               <div
                 key={service.id}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                data-id={service.id}
                 onClick={() => setActiveId(service.id)}
-                className={`group relative cursor-pointer rounded-[22px] sm:rounded-[24px] p-6 sm:p-7 flex flex-col items-center text-center transition-all duration-300 ${
+                style={{
+                  top: `calc(75px + ${index * 8}px)`,
+                  zIndex: index + 1,
+                }}
+                className={`group relative cursor-pointer rounded-[22px] sm:rounded-[24px] p-6 sm:p-7 flex flex-col items-center text-center transition-all duration-500 ease-out sticky md:static md:top-auto mb-6 md:mb-0 ${
                   isActive
-                    ? "bg-gradient-to-br from-[#68191b] via-[#521314] to-[#3a090b] text-white border-2 border-[#deb56c] shadow-[0_16px_36px_rgba(40,10,12,0.45),0_0_18px_rgba(222,181,108,0.22)] scale-[1.01]"
-                    : "bg-gradient-to-b from-[#fffefe] to-[#f7f2ea] text-[#1c1b1a] shadow-[0_10px_24px_rgba(0,0,0,0.07)] hover:shadow-[0_14px_30px_rgba(0,0,0,0.13)] hover:-translate-y-0.5"
+                    ? "bg-gradient-to-br from-[#68191b] via-[#521314] to-[#3a090b] text-white border-2 border-[#deb56c] shadow-[0_18px_40px_rgba(40,10,12,0.45),0_0_20px_rgba(222,181,108,0.22)] scale-[1.01]"
+                    : "bg-gradient-to-b from-[#fffefe] to-[#f7f2ea] text-[#1c1b1a] shadow-[0_10px_24px_rgba(0,0,0,0.08)] hover:shadow-[0_14px_30px_rgba(0,0,0,0.13)] hover:-translate-y-0.5"
                 }`}
               >
                 {/* Gold sparkle / shimmer glint on active card top-left corner */}
