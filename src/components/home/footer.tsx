@@ -20,10 +20,10 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#740101] text-white select-none overflow-hidden">
       {/* Main Footer Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14 items-start">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Column 1: Brand Logo & Social Icons */}
-          <div className="flex flex-col items-center md:items-start space-y-5">
+          <div className="flex flex-col items-center md:items-start space-y-4 md:col-span-4 lg:col-span-4">
             <Link href="/" className="inline-block transition-transform hover:scale-105 duration-300">
               <div className="relative w-20 h-20 sm:w-24 sm:h-24 drop-shadow-[0_8px_18px_rgba(0,0,0,0.25)]">
                 <Image
@@ -58,7 +58,7 @@ export default function Footer() {
                     </svg>
                   )}
                   {social.icon === "tripadvisor" && (
-                    <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 576 512">
+                    <svg className="w-4 h-4 fill-currentColor" viewBox="0 576 512">
                       <path d="M528.91 178.82L576 127.58H471.66a326.11 326.11 0 0 0-367 0H0l47.09 51.24a143.911 143.911 0 0 0 194.77 211.91l46.14 50.2l46.11-50.17a143.94 143.94 0 0 0 241.77-105.58h-.03a143.56 143.56 0 0 0-46.94-106.36M144.06 382.57a97.39 97.39 0 1 1 97.39-97.39a97.39 97.39 0 0 1-97.39 97.39M288 282.37c0-64.09-46.62-119.08-108.09-142.59a281 281 0 0 1 216.17 0C334.61 163.3 288 218.29 288 282.37m143.88 100.2h-.01a97.405 97.405 0 1 1 .01 0M144.06 234.12h-.01a51.06 51.06 0 1 0 51.06 51.06v-.11a51 51 0 0 0-51.05-50.95m287.82 0a51.06 51.06 0 1 0 51.06 51.06a51.06 51.06 0 0 0-51.06-51.06" />
                     </svg>
                   )}
@@ -77,79 +77,82 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: CONTACT US */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="font-serif text-[13px] sm:text-sm font-extrabold tracking-[0.22em] text-[#deb56c] uppercase">
-              {footerData.contact.title}
-            </h3>
+          {/* Columns 2 & 3: CONTACT US & CHAT US (Side by Side) */}
+          <div className="grid grid-cols-2 gap-5 sm:gap-8 md:gap-10 md:col-span-8 lg:col-span-8 items-start">
+            {/* Column 2: CONTACT US */}
+            <div className="flex flex-col items-start text-left">
+              <h3 className="font-serif text-[13px] sm:text-sm font-extrabold tracking-[0.22em] text-[#deb56c] uppercase">
+                {footerData.contact.title}
+              </h3>
 
-            <div className="mt-4 space-y-2.5 text-[13.5px] sm:text-sm text-[#faedea] leading-relaxed">
-              <p>
-                <a
-                  href={footerData.contact.phoneHref}
-                  className="hover:text-white transition-colors duration-200"
-                >
-                  {footerData.contact.phone}
-                </a>
-              </p>
-              <p>
-                <a
-                  href={`mailto:${footerData.contact.email}`}
-                  className="hover:text-white transition-colors duration-200"
-                >
-                  {footerData.contact.email}
-                </a>
-              </p>
-              <p className="pt-0.5">
-                {footerData.contact.addressLine1}
-                <br />
-                {footerData.contact.addressLine2}
-              </p>
+              <div className="mt-3.5 space-y-2 text-[12px] sm:text-sm text-[#faedea] leading-relaxed">
+                <p>
+                  <a
+                    href={footerData.contact.phoneHref}
+                    className="hover:text-white transition-colors duration-200 font-medium"
+                  >
+                    {footerData.contact.phone}
+                  </a>
+                </p>
+                <p className="break-all">
+                  <a
+                    href={`mailto:${footerData.contact.email}`}
+                    className="hover:text-white transition-colors duration-200"
+                  >
+                    {footerData.contact.email}
+                  </a>
+                </p>
+                <p className="pt-0.5 text-white/80">
+                  {footerData.contact.addressLine1}
+                  <br />
+                  {footerData.contact.addressLine2}
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* Column 3: CHAT US with WhatsApp Input */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="font-serif text-[13px] sm:text-sm font-extrabold tracking-[0.22em] text-[#deb56c] uppercase">
-              {footerData.chat.title}
-            </h3>
+            {/* Column 3: CHAT US */}
+            <div className="flex flex-col items-start text-left">
+              <h3 className="font-serif text-[13px] sm:text-sm font-extrabold tracking-[0.22em] text-[#deb56c] uppercase">
+                {footerData.chat.title}
+              </h3>
 
-            <p className="mt-3 text-[13.5px] sm:text-sm text-[#faedea]">
-              {footerData.chat.subtitle}
-            </p>
+              <p className="mt-3.5 text-[12px] sm:text-sm text-[#faedea] leading-snug">
+                {footerData.chat.subtitle}
+              </p>
 
-            {/* Chat Input + WhatsApp Button (Seamless Full-Coverage) */}
-            <form
-              onSubmit={handleWhatsAppSend}
-              className="mt-4 w-full max-w-sm flex items-stretch rounded-[6px] overflow-hidden shadow-[0_4px_14px_rgba(0,0,0,0.2)] bg-white"
-            >
-              <input
-                type="text"
-                value={chatMessage}
-                onChange={(e) => setChatMessage(e.target.value)}
-                placeholder={footerData.chat.defaultMessage}
-                className="flex-1 min-w-0 bg-white px-4 py-3 text-sm text-[#181818] placeholder-neutral-400 focus:outline-none border-none"
-              />
-              <button
-                type="submit"
-                aria-label="Send WhatsApp message"
-                className="self-stretch bg-[#deb56c] hover:bg-[#c99f57] text-[#141414] px-4 flex items-center justify-center transition-colors duration-200 cursor-pointer shrink-0"
+              {/* Chat Input + WhatsApp Button */}
+              <form
+                onSubmit={handleWhatsAppSend}
+                className="mt-3.5 w-full max-w-sm flex items-stretch rounded-[6px] overflow-hidden shadow-[0_4px_14px_rgba(0,0,0,0.2)] bg-white"
               >
-                {/* WhatsApp Icon */}
-                <svg
-                  className="w-4 h-4 fill-currentColor"
-                  viewBox="0 0 24 24"
+                <input
+                  type="text"
+                  value={chatMessage}
+                  onChange={(e) => setChatMessage(e.target.value)}
+                  placeholder={footerData.chat.defaultMessage}
+                  className="flex-1 min-w-0 bg-white px-2.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-[#181818] placeholder-neutral-400 focus:outline-none border-none"
+                />
+                <button
+                  type="submit"
+                  aria-label="Send WhatsApp message"
+                  className="self-stretch bg-[#deb56c] hover:bg-[#c99f57] text-[#141414] px-2.5 sm:px-4 flex items-center justify-center transition-colors duration-200 cursor-pointer shrink-0"
                 >
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.489.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.888 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.711 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                </svg>
-              </button>
-            </form>
+                  {/* WhatsApp Icon */}
+                  <svg
+                    className="w-4 h-4 fill-currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.489.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.888 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.711 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                  </svg>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar: Centered Copyright */}
-      <div className="relative z-10 border-t border-white/15 bg-black/15 py-5">
+      <div className="relative z-10 border-t border-white/15 bg-black/15 py-5 pb-20 lg:pb-5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-center text-center text-xs sm:text-[13px] text-[#faedea]/90">
           <div>
             <span>{footerData.copyright.text} </span>
