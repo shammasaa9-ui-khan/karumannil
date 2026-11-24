@@ -127,9 +127,19 @@ export default function Details() {
                   }`}
                 >
                   <div className="bg-black/65 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/20 flex items-center justify-between shadow-lg">
-                    <span className="font-serif text-white font-bold text-[13px] tracking-tight">
-                      {apartment.title}
-                    </span>
+                    <div className="flex flex-col">
+                      <span className="font-serif text-white font-bold text-[13px] tracking-tight">
+                        {apartment.title}
+                      </span>
+                      {apartment.location && (
+                        <span className="text-[#deb56c] text-[10.5px] font-medium flex items-center gap-1">
+                          <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                          </svg>
+                          {apartment.location}
+                        </span>
+                      )}
+                    </div>
                     <span className="text-[#deb56c] text-[11px] font-bold">
                       {apartment.price}
                     </span>
@@ -151,6 +161,15 @@ export default function Details() {
                     <h3 className="font-serif text-[22px] sm:text-[24px] font-bold tracking-tight text-white leading-tight">
                       {apartment.title}
                     </h3>
+
+                    {apartment.location && (
+                      <p className="mt-1 flex items-center gap-1.5 text-[12px] sm:text-[13px] font-medium text-[#f5dbb0]">
+                        <svg className="w-3.5 h-3.5 text-[#deb56c] shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                        </svg>
+                        <span>{apartment.location}</span>
+                      </p>
+                    )}
 
                     <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
                       <span className="font-serif text-[22px] sm:text-[24px] font-bold text-[#deb56c] tracking-tight">

@@ -1,6 +1,7 @@
 export interface ApartmentDetail {
   id: number;
   title: string;
+  location: string;
   price: string;
   priceSub: string;
   size: string;
@@ -25,6 +26,7 @@ export const detailData: DetailSectionData = {
     {
       id: 1,
       title: "Karumannil Apartment",
+      location: "Kottakkal",
       price: "25 LAKH",
       priceSub: "onwards per flat",
       size: "1800 sqft",
@@ -38,6 +40,7 @@ export const detailData: DetailSectionData = {
     {
       id: 2,
       title: "Karumannil Apartment",
+      location: "Kottakkal",
       price: "25 LAKH",
       priceSub: "onwards per flat",
       size: "1800 sqft",
@@ -51,6 +54,7 @@ export const detailData: DetailSectionData = {
     {
       id: 3,
       title: "Karumannil Apartment",
+      location: "Kottakkal",
       price: "25 LAKH",
       priceSub: "onwards per flat",
       size: "1800 sqft",
@@ -64,6 +68,7 @@ export const detailData: DetailSectionData = {
     {
       id: 4,
       title: "Karumannil Apartment",
+      location: "Kottakkal",
       price: "25 LAKH",
       priceSub: "onwards per flat",
       size: "1800 sqft",
