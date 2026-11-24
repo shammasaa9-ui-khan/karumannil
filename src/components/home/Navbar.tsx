@@ -39,7 +39,7 @@ export default function Navbar() {
                 : "bg-transparent py-0 border-0"
             }`}
           >
-            {/* Left: Brand Icon + Name */}
+            {/* Left: Brand Icon + 2-Line Name */}
             <Link href="/" className="flex items-center gap-3 sm:gap-3.5 group">
               <div
                 className={`relative flex-shrink-0 transition-all duration-300 group-hover:scale-105 ${
@@ -77,7 +77,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Center: Nav Links */}
+            {/* Center: Desktop Nav Links */}
             <nav className="flex items-center gap-8 lg:gap-10 text-[17px] lg:text-[18px]">
               {navbarData.navLinks.map((link) => {
                 const isLinkActive =
@@ -101,7 +101,7 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Right: "CONTACT NOW" CTA Button */}
+            {/* Right: Desktop "CONTACT NOW" CTA Button */}
             <div className="flex items-center">
               <Link
                 href={navbarData.action.href}
@@ -116,10 +116,10 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ================= MOBILE BOTTOM NAVBAR (lg:hidden) ================= */}
-      <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-[#740101] text-white shadow-[0_-4px_25px_rgba(0,0,0,0.25)] select-none">
-        <div className="flex items-center justify-between px-5 py-3">
-          {/* Left: Brand Logo + Stacked Name */}
+      {/* ================= MOBILE / RESPONSIVE TOP NAVBAR (lg:hidden) ================= */}
+      <header className="sticky top-0 z-50 w-full lg:hidden bg-[#740101] text-white shadow-[0_4px_20px_rgba(0,0,0,0.2)] select-none">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3">
+          {/* Left: Brand Logo + Stacked Name (Karumannil / HOLDING) */}
           <Link href="/" className="flex items-center gap-2.5">
             <div className="relative h-8 w-8 shrink-0">
               <Image
@@ -132,17 +132,17 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-sans font-bold text-[1.05rem] tracking-tight text-white leading-none">
+              <span className="font-sans font-bold text-[1.05rem] tracking-tight text-white leading-tight">
                 Karumannil
               </span>
-              <span className="font-sans font-semibold text-[0.62rem] tracking-[0.2em] uppercase text-[#deb56c] mt-0.5 leading-none">
+              <span className="font-sans font-semibold text-[0.62rem] tracking-[0.2em] uppercase text-[#deb56c] mt-0.5 leading-tight">
                 Holding
               </span>
             </div>
           </Link>
 
-          {/* Right: Quick Action Icons (Profile, Search, Hamburger) */}
-          <div className="flex items-center gap-4 text-white">
+          {/* Right: Contact Profile + Search + Hamburger Icon */}
+          <div className="flex items-center gap-3.5 sm:gap-4 text-white">
             {/* User / Contact Icon */}
             <Link
               href="/contact"
@@ -184,43 +184,11 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </div>
 
-      {/* ================= MOBILE BOTTOM DRAWER / MENU ================= */}
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-
-          {/* Drawer Menu (Slides up from the bottom navbar) */}
-          <div className="fixed inset-x-0 bottom-[56px] z-50 lg:hidden rounded-t-[24px] bg-[#eff0eb] border-t border-[#deb56c]/40 px-6 pt-5 pb-6 shadow-[0_-12px_40px_rgba(0,0,0,0.3)] select-none">
-            {/* Grab Handle */}
-            <div className="w-12 h-1 bg-black/20 rounded-full mx-auto mb-4" />
-
-            <div className="flex items-center gap-3 pb-3 mb-2 border-b border-black/10">
-              <div className="relative h-9 w-9 shrink-0">
-                <Image
-                  src="/images/logo.png"
-                  alt="Karumannil Holding"
-                  fill
-                  sizes="36px"
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-sans font-bold text-[1.1rem] tracking-tight text-[#1c1c1c]">
-                  Karumannil
-                </span>
-                <span className="font-sans font-semibold text-[0.65rem] tracking-[0.2em] uppercase text-[#740101] mt-0.5">
-                  Holding
-                </span>
-              </div>
-            </div>
-
-            <nav className="flex flex-col gap-2.5">
+        {/* Mobile Dropdown Menu (Drops down directly from top navbar) */}
+        {mobileMenuOpen && (
+          <div className="bg-[#5a0000] border-t border-[#deb56c]/30 px-6 py-5 shadow-2xl select-none transition-all">
+            <nav className="flex flex-col gap-3">
               {navbarData.navLinks.map((link) => {
                 const isLinkActive =
                   link.href === "/"
@@ -234,12 +202,12 @@ export default function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center justify-between py-2 text-[16px] font-semibold transition-colors ${
                       isLinkActive
-                        ? "text-[#740101] font-bold"
-                        : "text-[#1c1c1c] hover:text-[#740101]"
+                        ? "text-[#deb56c] font-bold"
+                        : "text-white/90 hover:text-white"
                     }`}
                   >
                     <span>{link.label}</span>
-                    <svg className="w-4 h-4 text-black/30" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-white/40" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
@@ -250,15 +218,15 @@ export default function Navbar() {
                 <Link
                   href={navbarData.action.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex w-full items-center justify-center rounded-full bg-[#740101] hover:bg-[#5a0000] py-3 text-xs font-bold text-white tracking-widest uppercase shadow-md transition-colors"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-[#deb56c] hover:bg-[#c99f57] py-3 text-xs font-bold text-[#141414] tracking-widest uppercase shadow-md transition-colors"
                 >
                   {navbarData.action.label}
                 </Link>
               </div>
             </nav>
           </div>
-        </>
-      )}
+        )}
+      </header>
     </>
   );
 }
