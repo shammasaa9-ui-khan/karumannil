@@ -71,7 +71,7 @@ export const footerData: FooterData = {
   copyright: {
     year: 2026,
     text: "Copyright ©2026 All Right Reserved. | Developed by",
-    developerName: "seabran ai",
-    developerHref: "https://seabrantech.com",
+    developerName: "seabrand ai",
+    developerHref: "https://seabrand.in",
   },
 };
